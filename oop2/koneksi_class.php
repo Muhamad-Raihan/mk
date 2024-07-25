@@ -28,16 +28,16 @@ class database {
         $query = "INSERT INTO anggota (nama, alamat, telepon) VALUES ('$nama','$alamat','$telepon')";
         $hasil = mysqli_query($this->koneksi, $query)or die(mysqli_error());
         if ($hasil)
-            echo "meta http-equiv='refresh', content'0; url=index.php'>";
+            echo "Data anggota telah disimpan";
         else 
             echo "Data anggota gagal disimpan";
     }
 
     //method tsmpil data
-    function tampilAnggota($nama, $alamat, $telepon) {
+    function tampilAnggota() {
         $query = mysqli_query($this->koneksi, "SELECT * FROM anggota ORDER BY id_anggota");
         while ($row = mysqli_fetch_array($query)) $data [] = $row;
-        return $data;    
+        return $data;
     }
 
     //method hapus data

@@ -1,9 +1,9 @@
 <?php
 //memanggil file koneksi
-include 'koneksi.php';
+include 'koneksi_class.php';
 
 //instance objek db
-$db = new database();
+$db = new databaseBuku();
 
 //koneksi ke MySQL via method
 $db->connectMySQL();
@@ -89,4 +89,6 @@ foreach ($arraybuku as $data){
     $i++;
 }
 echo "</table>";
+echo "<br> <a href='pinjam.php'>Lihat Daftar Peminjaman</a>";
+echo "<br> <a href='index.php'>Cek Daftar Pustakawan</a>";
 ?>

@@ -65,21 +65,25 @@ if (isset($_GET['aksi'])) {
 
 //buat array data anggota dari method tampilAnggota()
 $arrayanggota = $db->tampilAnggota();
-echo "</table> <br> <a href='?aksi=tambah'>TAMBAH</a>";
+echo "</table> <br> <a href='?aksi=tambah'>TAMBAH ANGGOTA</a>";
 echo "<table border='1' cellpadding='5'>
-    <tr><th>No</th>
-    <th>Nama Anggota</th>
-    <th>Alamat</th>
-    <th>Telepon</th>
-    <th>Aksi</th></tr>";
+<tr><th>No</th>
+<th>Nama Anggota</th>
+<th>Alamat</th>
+<th>Telepon</th>
+<th>Aksi</th></tr>";
 $i = 1;
 foreach ($arrayanggota as $data){
     echo "<tr><td>" .$i."</td>
-            <td>" .$data['nama']. "</td>
-            <td>" .$data['alamat']. "</td>
-            <td>" .$data['telepon']. "</td>
-            <td><a href='" .$_SERVER['PHP_SELF']. "?aksi=edit&id_agt=" .$data['id_anggota'] ."'>Edit</a>
-            <a href='".$_SERVER['PHP_SELF']. "?aksi=hapus&id_agt=" . $data['id_anggota'] . "'>Hapus</a></td></tr>";
+    <td>" .$data['nama']. "</td>
+    <td>" .$data['alamat']. "</td>
+    <td>" .$data['telepon']. "</td>
+    <td><a href='" .$_SERVER['PHP_SELF']. "?aksi=edit&id_agt=" .$data['id_anggota'] ."'>Edit</a>
+    <a href='".$_SERVER['PHP_SELF']. "?aksi=hapus&id_agt=" . $data['id_anggota'] . "'>Hapus</a></td></tr>";
     $i++;
 }
 echo "</table>";
+echo "<br> <a href='buku.php'>Cek Daftar Buku</a>";
+echo "<br> <a href='pinjam.php'>Lihat Daftar Peminjaman</a>";
+
+?>

@@ -1,13 +1,12 @@
 <?php
 //memanggil file koneksi
 include 'koneksi_class.php';
-
 //instance objek db
 $db = new database();
-
 //koneksi ke MySQL via method
 $db->connectMySQL();
-
+echo "<br> <a href='buku.php'>Cek Daftar Buku</a>";
+echo "<br> <a href='pinjam.php'>Lihat Daftar Peminjaman</a><br>";
 //proses hapus data
 if (isset($_GET['aksi'])) {
     if ($_GET['aksi'] == 'hapus') {
@@ -33,7 +32,6 @@ if (isset($_GET['aksi'])) {
         $telepon = $_POST['telepon'];
         $db->tambahAnggota($nama, $alamat, $telepon);
     }
-
     //proses update data
     else if ($_GET['aksi'] == 'edit')
     {
@@ -62,7 +60,6 @@ if (isset($_GET['aksi'])) {
         $db->updateDataAnggota($id, $nama, $alamat, $telepon);
     }
 }
-
 //buat array data anggota dari method tampilAnggota()
 $arrayanggota = $db->tampilAnggota();
 echo "</table> <br> <a href='?aksi=tambah'>TAMBAH ANGGOTA</a>";
@@ -83,7 +80,4 @@ foreach ($arrayanggota as $data){
     $i++;
 }
 echo "</table>";
-echo "<br> <a href='buku.php'>Cek Daftar Buku</a>";
-echo "<br> <a href='pinjam.php'>Lihat Daftar Peminjaman</a>";
-
 ?>

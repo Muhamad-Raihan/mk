@@ -1,13 +1,12 @@
 <?php
 //memanggil file koneksi
 include 'koneksi_class.php';
-
 //instance objek db
 $db = new databasePinjam();
-
 //koneksi ke MySQL via method
 $db->connectMySQL();
-
+echo "<br> <a href='buku.php'>Cek Daftar Buku</a>";
+echo "<br> <a href='index.php'>Lihat Daftar Pustakawan</a><br>";
 //proses hapus data
 if (isset($_GET['aksi'])) {
     if ($_GET['aksi'] == 'hapus') {
@@ -35,7 +34,6 @@ if (isset($_GET['aksi'])) {
         $balik = $_POST['balik'];
         $db->tambahPinjam($nama, $judul, $pinjam, $balik);
     }
-
     //proses update data
     else if ($_GET['aksi'] == 'edit')
     {
@@ -66,7 +64,6 @@ if (isset($_GET['aksi'])) {
         $db->updateDataPinjam($id, $nama, $judul, $pinjam, $balik);
     }
 }
-
 //buat array data anggota dari method tampilAnggota()
 $arraybuku = $db->tampilPinjam();
 echo "</table> <br> <a href='?aksi=tambah'>TAMBAH NAMA PEMINJAM</a>";
@@ -74,8 +71,8 @@ echo "<table border='1' cellpadding='5'>
     <tr><th>No</th>
     <th>Nama Peminjam</th>
     <th>Judul Buku</th>
-    <th>Tanggal Pinjam</th>
-    <th>Tanggal</th>
+    <th>Tanggal Peminjaman</th>
+    <th>Tanggal Pengembalian</th>
     <th>Aksi</th></tr>";
 $i = 1;
 foreach ($arraybuku as $data){
@@ -89,6 +86,4 @@ foreach ($arraybuku as $data){
     $i++;
 }
 echo "</table>";
-echo "<br> <a href='index.php'>Lihat Daftar Nama Pustawakan</a>";
-echo "<br> <a href='buku.php'>Cek Daftar Buku</a>";
 ?>

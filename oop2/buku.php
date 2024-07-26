@@ -1,13 +1,12 @@
 <?php
 //memanggil file koneksi
 include 'koneksi_class.php';
-
 //instance objek db
 $db = new databaseBuku();
-
 //koneksi ke MySQL via method
 $db->connectMySQL();
-
+echo "<br> <a href='index.php'>Lihat Daftar Pustakawan</a>";
+echo "<br> <a href='pinjam.php'>Lihat Daftar Peminjaman</a><br>";
 //proses hapus data
 if (isset($_GET['aksi'])) {
     if ($_GET['aksi'] == 'hapus') {
@@ -23,7 +22,7 @@ if (isset($_GET['aksi'])) {
         <tr><td>Judul</td><td><input type=text name='judul'></td></tr>
         <tr><td>Penulis</td><td><input type=text name='penulis'></td></tr>
         <tr><td>Penerbit</td><td><input type=text name='penerbit'></td></tr>
-        <tr><td>Tanggal</td><td><input type=date name='tanggal'></td></tr>
+        <tr><td>Tanggal</td><td><input type=date name='tanggal' placeholder='dd-mm-yyyy'></td></tr>
         <tr><td></td><td><input type=submit value='simpan'></td></tr>
         </table>
         </form>";
@@ -35,7 +34,6 @@ if (isset($_GET['aksi'])) {
         $tanggal = $_POST['tanggal'];
         $db->tambahBuku($judul, $penulis, $penerbit, $tanggal);
     }
-
     //proses update data
     else if ($_GET['aksi'] == 'edit')
     {
@@ -66,7 +64,6 @@ if (isset($_GET['aksi'])) {
         $db->updateDataBuku($id, $judul, $penulis, $penerbit, $tanggal);
     }
 }
-
 //buat array data anggota dari method tampilAnggota()
 $arraybuku = $db->tampilBuku();
 echo "</table> <br> <a href='?aksi=tambah'>TAMBAH</a>";
@@ -89,6 +86,4 @@ foreach ($arraybuku as $data){
     $i++;
 }
 echo "</table>";
-echo "<br> <a href='pinjam.php'>Lihat Daftar Peminjaman</a>";
-echo "<br> <a href='index.php'>Cek Daftar Pustakawan</a>";
 ?>

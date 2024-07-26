@@ -149,4 +149,204 @@ class databasePinjam extends database {
         mysqli_close($this->koneksi);
     }
 }
+
+class databaseSiswa extends database {
+    //method tambah data (insert data)
+    function tambahSiswa($nama, $kelas, $alamat) {
+        $query = "INSERT INTO siswa (nama, kelas, alamat) VALUES ('$nama','$kelas','$alamat')";
+        $hasil = mysqli_query($this->koneksi, $query)or die(mysqli_error());
+        if ($hasil)
+            echo "Data Pembayaran telah disimpan";
+        else 
+            echo "Data Siswa gagal disimpan";
+    }
+    //method tsmpil data
+    function tampilSiswa() {
+        $query = mysqli_query($this->koneksi, "SELECT * FROM siswa ORDER BY nis");
+        while ($row = mysqli_fetch_array($query)) $data [] = $row;
+        return $data;
+    }
+    //method hapus data
+    function hapusSiswa($nis){
+        $query = mysqli_query($this->koneksi, "DELETE FROM siswa WHERE nis='$nis'");
+        echo "<p>Data Siswa dengan NIS ".$nis."sudah dihapus</p>";
+    }
+    function bacaDataSiswa($field, $nis) {
+        $query = "SELECT * FROM siswa WHERE nis='$nis'";
+        $hasil = mysqli_query($this->koneksi, $query);
+        $data = mysqli_fetch_array($hasil);
+        if ($field == 'nama')
+            return $data['nama'];
+        else if ($field == 'kelas')
+            return $data ['kelas'];
+        else if ($field == 'alamat')
+            return $data ['alamat'];
+    }
+    //method untuk proses update data anggota
+    function updateDataSiswa($nis, $nama, $kelas, $alamat){
+        $query = "UPDATE siswa SET nama='$nama', kelas='$kelas', alamat='$alamat' WHERE nis='$nis'";
+        mysqli_query($this->koneksi, $query);
+        echo "<p>Data anggota telah di update.</p>";
+    }
+}
+
+class databaseGuru extends database {
+    //method tambah data (insert data)
+    function tambahGuru($nama, $jabatan, $bstudi, $alamat) {
+        $query = "INSERT INTO guru (nama, jabatan, bstudi, alamat) VALUES ('$nama','$jabatan','$bstudi' ,'$alamat')";
+        $hasil = mysqli_query($this->koneksi, $query)or die(mysqli_error());
+        if ($hasil)
+            echo "Data Siswa telah disimpan";
+        else 
+            echo "Data Siswa gagal disimpan";
+    }
+    //method tsmpil data
+    function tampilGuru() {
+        $query = mysqli_query($this->koneksi, "SELECT * FROM guru ORDER BY nip");
+        while ($row = mysqli_fetch_array($query)) $data [] = $row;
+        return $data;
+    }
+    //method hapus data
+    function hapusGuru($nip){
+        $query = mysqli_query($this->koneksi, "DELETE FROM guru WHERE nip='$nip'");
+        echo "<p>Data Siswa dengan NIP ".$nip."sudah dihapus</p>";
+    }
+    function bacaDataGuru($field, $nip) {
+        $query = "SELECT * FROM guru WHERE nip='$nip'";
+        $hasil = mysqli_query($this->koneksi, $query);
+        $data = mysqli_fetch_array($hasil);
+        if ($field == 'nama')
+            return $data['nama'];
+        else if ($field == 'jabatan')
+            return $data ['jabatan'];
+        else if ($field == 'bstudi')
+            return $data ['bstudi'];
+        else if ($field == 'alamat')
+            return $data ['alamat'];
+    }
+    //method untuk proses update data anggota
+    function updateDataGuru($nip, $nama, $jabatan, $bstudi, $alamat){
+        $query = "UPDATE guru SET nama='$nama', jabatan='$jabatan', bstudi='$bstudi', alamat='$alamat' WHERE nip='$nip'";
+        mysqli_query($this->koneksi, $query);
+        echo "<p>Data anggota telah di update.</p>";
+    }
+}
+
+class databaseRuang extends database {
+    //method tambah data (insert data)
+    function tambahRuang($nama, $nomor) {
+        $query = "INSERT INTO ruang (nama, nomor) VALUES ('$nama','$nomor')";
+        $hasil = mysqli_query($this->koneksi, $query)or die(mysqli_error());
+    }
+    //method tsmpil data
+    function tampilRUang() {
+        $query = mysqli_query($this->koneksi, "SELECT * FROM ruang ORDER BY nama");
+        while ($row = mysqli_fetch_array($query)) $data [] = $row;
+        return $data;
+    }
+    //method hapus data
+    function hapusRuang($kode){
+        $query = mysqli_query($this->koneksi, "DELETE FROM ruang WHERE kode='$kode'");
+        echo "<p>Data Ruangan sudah dihapus</p>";
+    }
+    function bacaDataRuang($field, $kode) {
+        $query = "SELECT * FROM ruang WHERE kode='$kode'";
+        $hasil = mysqli_query($this->koneksi, $query);
+        $data = mysqli_fetch_array($hasil);
+        if ($field == 'nama')
+            return $data['nama'];
+        else if ($field == 'nomor')
+            return $data ['nomor'];
+    }
+    //method untuk proses update data anggota
+    function updateDataGuru($kode, $nama, $nomor){
+        $query = "UPDATE ruang SET nama='$nama', nomor='$nomor' WHERE kode='$kode'";
+        mysqli_query($this->koneksi, $query);
+        echo "<p>Data Ruangan telah di update.</p>";
+    }
+}
+
+class databaseSpp extends database {
+    //method tambah data (insert data)
+    function tambahSpp($nis, $tanggal, $total) {
+        $query = "INSERT INTO spp (nis, tanggal, total) VALUES ('$nis','$tanggal','$total')";
+        $hasil = mysqli_query($this->koneksi, $query)or die(mysqli_error());
+        if ($hasil)
+            echo "Data Pembayaran telah disimpan";
+        else 
+            echo "Data Pembayaran gagal disimpan";
+    }
+    //method tsmpil data
+    function tampilSpp() {
+        $query = mysqli_query($this->koneksi, "SELECT * FROM spp ORDER BY id");
+        while ($row = mysqli_fetch_array($query)) {
+            $row['tanggal'] = date('d-F-Y', strtotime($row['tanggal']));
+            $data[] = $row; 
+        }
+        return $data;
+        return $data;
+    }
+    //method hapus data
+    function hapusSpp($id){
+        $query = mysqli_query($this->koneksi, "DELETE FROM spp WHERE id='$id'");
+        echo "<p>Data Pembayaran sudah dihapus</p>";
+    }
+    function bacaDataSpp($field, $id) {
+        $query = "SELECT * FROM spp WHERE id='$id'";
+        $hasil = mysqli_query($this->koneksi, $query);
+        $data = mysqli_fetch_array($hasil);
+        if ($field == 'nis')
+            return $data['nis'];
+        else if ($field == 'tanggal')
+            return $data ['tanggal'];
+        else if ($field == 'total')
+            return $data ['total'];
+    }
+    //method untuk proses update data anggota
+    function updateDataSpp($id, $nis, $tanggal, $total){
+        $query = "UPDATE spp SET nis='$nis', tanggal='$tanggal', total='$total' WHERE id='$id'";
+        mysqli_query($this->koneksi, $query);
+        echo "<p>Data pembayaran telah di update.</p>";
+    }
+}
+
+class databaseMapel extends database {
+    //method tambah data (insert data)
+    function tambahMapel($nip, $mapel, $ruang) {
+        $query = "INSERT INTO mapel (nip, mapel, ruang) VALUES ('$nip','$mapel','$ruang')";
+        $hasil = mysqli_query($this->koneksi, $query)or die(mysqli_error());
+        if ($hasil)
+            echo "Data Roster telah disimpan";
+        else 
+            echo "Data Roster gagal disimpan";
+    }
+    //method tsmpil data
+    function tampilMapel() {
+        $query = mysqli_query($this->koneksi, "SELECT * FROM mapel ORDER BY id");
+        while ($row = mysqli_fetch_array($query)) $data [] = $row;
+        return $data;
+    }
+    //method hapus data
+    function hapusMapel($id){
+        $query = mysqli_query($this->koneksi, "DELETE FROM mapel WHERE id='$id'");
+        echo "<p>Data Roster sudah dihapus</p>";
+    }
+    function bacaDataMapel($field, $id) {
+        $query = "SELECT * FROM mapel WHERE id='$id'";
+        $hasil = mysqli_query($this->koneksi, $query);
+        $data = mysqli_fetch_array($hasil);
+        if ($field == 'nip')
+            return $data['nip'];
+        else if ($field == 'mapel')
+            return $data ['mapel'];
+        else if ($field == 'ruang')
+            return $data ['ruang'];
+    }
+    //method untuk proses update data anggota
+    function updateDataMapel($id, $nip, $mapel, $ruang){
+        $query = "UPDATE mapel SET nip='$nip', mapel='$mapel', ruang='$ruang' WHERE id='$id'";
+        mysqli_query($this->koneksi, $query);
+        echo "<p>Data Roster telah di update.</p>";
+    }
+}
 ?>

@@ -1,0 +1,138 @@
+html * {
+  font-size: 2vmin;
+  color: #FFF;
+  font-family: Din-Light, Arial, sans-serif;
+  line-height: 1.45;
+}
+
+@font-face {
+  font-family: Din-Light;
+  src: url("../assets/DINLight.ttf") format("truetype");
+  src: url("../assets/DIN Light Regular.otf") format("opentype");
+}
+
+h1 {
+  font-size: 2em;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  height: 100vh;
+}
+
+.header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -90%);
+  animation: fadeQuotes 20s infinite;
+}
+.header h1:nth-child(2) {
+  animation-delay: -5s
+}
+.header h1:nth-child(3) {
+  animation-delay: -10s
+}
+.header h1:nth-child(4) {
+  animation-delay: -15s
+}
+
+@keyframes fadeQuotes {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.arrow {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.arrow span {
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transform: rotate(45deg);
+  margin: -0.5em;
+  animation: animate 3s infinite;
+}
+
+.arrow span:nth-child(1) {
+  animation-delay: -0.2s
+}
+.arrow span:nth-child(2) {
+  animation-delay: -0.4s
+}
+.arrow span:nth-child(3) {
+  animation-delay: -0.6s
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translate(-1em,-1em);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(2em,2em);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  margin-bottom: 10px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin:10px;
+}
+
+svg {
+  height: auto;
+  width: 100%;
+}
+
+rect {
+  fill: white;
+  fill-opacity: 0.8;
+}
+
+circle {
+  fill: white;
+  fill-opacity: 0.8;
+}

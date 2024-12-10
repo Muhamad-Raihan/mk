@@ -3,27 +3,25 @@ session_start();
 
 // Pengecekan apakah user sudah login berdasarkan session
 if (isset($_SESSION['role'])) {
-    if ($_SESSION['role'] == 'petugas') {
-        header("Location: dashboard_petugas.php");
+    if ($_SESSION['role'] == 'admin') {
+        header("Location: dsadm.php");
         exit;
-    } elseif ($_SESSION['role'] == 'peminjam') {
-        header("Location: dashboard_peminjam.php");
+    } elseif ($_SESSION['role'] == 'pelanggan') {
+        header("Location: dspel.php");
         exit;
     }
 }
 
 // Pengecekan cookie, jika sudah login, arahkan ke dashboard
 if (isset($_COOKIE['logged_in']) && $_COOKIE['logged_in'] == "true") {
-    if ($_SESSION['role'] == 'petugas') {
-        header("Location: dashboard_petugas.php");
+    if ($_SESSION['role'] == 'admin') {
+        header("Location: dsadm.php");
         exit;
-    } elseif ($_SESSION['role'] == 'peminjam') {
-        header("Location: dashboard_peminjam.php");
+    } elseif ($_SESSION['role'] == 'pelanggan') {
+        header("Location: dspel.php");
         exit;
     }
 }
-
-// Jika tidak ada session atau cookie, tetap di halaman login
 ?>
 
 <!DOCTYPE html>
@@ -32,11 +30,9 @@ if (isset($_COOKIE['logged_in']) && $_COOKIE['logged_in'] == "true") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- Bootstrap CSS -->
     <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome CSS -->
     <link href="../../fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="template/mata.css" rel="stylesheet">
+    <link href="aset/css/index.css" rel="stylesheet">
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
@@ -45,25 +41,25 @@ if (isset($_COOKIE['logged_in']) && $_COOKIE['logged_in'] == "true") {
             <form action="koneksi/login.php" method="POST">
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" required>
+                    <input type="text" class="form-control" id="nama" name="usnm" placeholder="Masukkan Nama" required>
                 </div>
                 <div class="mb-3 position-relative">
                     <label for="password" class="form-label">Password</label>
                     <div class="password-container">
-                        <input type="password" class="form-control" id="pass" name="password" placeholder="Enter your password">
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter your password">
                         <span class="eye">
                             <i id="hide1" class="fas fa-eye" onclick="togglePassword()"></i>
                             <i id="hide2" class="fas fa-eye-slash" onclick="togglePassword()"></i>
                         </span>
                     </div>
                 </div>
+                <p>Belum punya akun? Silahkan daftar<a href="daftar.php">disini</a></p>
                 <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
             </form>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="template/mata.js"></script>
+    <script src="aset/js/mata.js"></script>
 </body>
 </html>

@@ -1,0 +1,98 @@
+---------------------------- Melihat data pelanggan berdasarkan namanya ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cpel`(pelrai VARCHAR(255))
+BEGIN
+    SELECT * 
+    FROM pelanggan
+    WHERE nama_pelanggan = pelrai;
+END$$
+DELIMITER ;
+
+---------------------------- Melihat data produk berdasarkan nama ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cpro`(IN `prorai` VARCHAR(255))
+BEGIN
+    SELECT * 
+    FROM produk
+    WHERE nama_produk = prorai;
+END$$
+DELIMITER ;
+
+---------------------------- Melihat data produk berdasarkan harga ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cproh`(IN `hprorai` DOUBLE(10,2))
+BEGIN
+    SELECT harga, nama_produk, stok
+    FROM produk
+    WHERE harga = hprorai;
+END$$
+DELIMITER ;
+
+---------------------------- Melihat data produk ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cpronm`()
+BEGIN
+    SELECT nama_produk, harga, stok
+    FROM produk;
+END$$
+DELIMITER ;
+
+---------------------------- Melihat detil penjualan berdasarkan nama pelanggan ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dprai`(IN pelrai VARCHAR(255))
+BEGIN
+    SELECT pl.nama_pelanggan, pr.nama_produk, dp.jumlah_produk, dp.subtotal, pn.total_harga
+    FROM detailpenjualan dp
+    JOIN penjualan pn ON pn.penjualan_id = dp.penjualan_id
+    JOIN produk pr ON pr.produk_id = dp.produk_id
+    JOIN pelanggan pl ON pl.pelanggan_id = pn.pelanggan_id
+    WHERE pl.nama_pelanggan = pelrai
+END$$
+DELIMITER ;
+
+---------------------------- Melihat detil penjualan ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sdprai`()
+BEGIN
+    SELECT pl.nama_pelanggan, pr.nama_produk, dp.jumlah_produk, dp.subtotal, pn.total_harga, pn.tgl_penjualan
+    FROM detailpenjualan dp
+    JOIN penjualan pn ON pn.penjualan_id = dp.penjualan_id
+    JOIN produk pr ON pr.produk_id = dp.produk_id
+    JOIN pelanggan pl ON pl.pelanggan_id = pn.pelanggan_id;
+END$$
+DELIMITER ;
+
+---------------------------- Melihat detil penjualan berdasarkan tanggal transaksi ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tdprai`(IN ttpelrai DATE)
+BEGIN
+    SELECT pn.tgl_penjualan, pl.nama_pelanggan, pr.nama_produk, dp.jumlah_produk, dp.subtotal, pn.total_harga
+    FROM detailpenjualan dp
+    JOIN penjualan pn ON pn.penjualan_id = dp.penjualan_id
+    JOIN produk pr ON pr.produk_id = dp.produk_id
+    JOIN pelanggan pl ON pl.pelanggan_id = pn.pelanggan_id
+    WHERE pn.tgl_penjualan = ttpelrai;
+END$$
+DELIMITER ;
+
+---------------------------- Melihat data pelanggan berdasarkan harga transaksi ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `thrai`(IN tpelrai Double(10,2))
+BEGIN
+    SELECT j.total_harga, p.nama_pelanggan
+    FROM penjualan j
+    JOIN pelanggan p ON p.pelanggan_id = j.pelanggan_id
+    WHERE j.total_harga = tpelrai;
+END$$
+DELIMITER ;
+
+---------------------------- Melihat total transaksi berdasarkan nama pelanggan ----------------------------
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `trai`(IN pelrai VARCHAR(255))
+BEGIN
+    SELECT p.nama_pelanggan, j.total_harga
+    FROM penjualan j
+    JOIN pelanggan p ON p.pelanggan_id = j.pelanggan_id
+    WHERE p.nama_pelanggan = pelrai;
+END$$
+DELIMITER ;
